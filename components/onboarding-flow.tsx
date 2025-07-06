@@ -4,7 +4,23 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Camera, ArrowRight, QrCode, Target, Eye, EyeOff, MapPin, Users, Trophy, CheckCircle } from "lucide-react"
+import {
+  Camera,
+  ArrowRight,
+  QrCode,
+  Target,
+  Eye,
+  EyeOff,
+  MapPin,
+  Users,
+  Trophy,
+  CheckCircle,
+  Wallet,
+  Shield,
+  CreditCard,
+  DollarSign,
+  Package,
+} from "lucide-react"
 import Image from "next/image"
 
 interface OnboardingFlowProps {
@@ -26,7 +42,7 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
   })
 
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep(currentStep + 1)
     } else {
       onComplete()
@@ -54,7 +70,7 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                   <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
                 </div>
                 <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
-                  Step 1 of 5
+                  Step 1 of 6
                 </Badge>
               </div>
 
@@ -108,7 +124,7 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                   <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
                 </div>
                 <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
-                  Step 2 of 5
+                  Step 2 of 6
                 </Badge>
               </div>
 
@@ -192,43 +208,45 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                   <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
                 </div>
                 <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
-                  Step 3 of 5
+                  Step 3 of 6
                 </Badge>
               </div>
 
               <div className="text-center space-y-2">
-                <h1 className="text-xl sm:text-2xl font-bold text-white">What's Your Skill Level?</h1>
-                <p className="text-gray-400 text-sm sm:text-base">Help us match you with the right games</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-white">Activate Your Wallet</h1>
+                <p className="text-gray-400 text-sm sm:text-base">Secure payments for games and tournaments</p>
+              </div>
+
+              <div className="bg-gradient-to-r from-[#00FF41]/20 to-[#FF6B35]/20 border border-[#00FF41] rounded-2xl p-6 text-center">
+                <div className="w-16 h-16 bg-[#00FF41] rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Wallet className="w-8 h-8 text-black" />
+                </div>
+                <h3 className="font-semibold text-lg mb-2">CrosspointX Wallet</h3>
+                <p className="text-gray-300 text-sm mb-4">Load funds, track earnings, and pay for games seamlessly</p>
+                <div className="text-2xl font-bold text-[#00FF41] mb-2">$0.00</div>
+                <div className="text-xs text-gray-400">Starting Balance</div>
               </div>
 
               <div className="space-y-3">
-                {[
-                  { id: "beginner", label: "Beginner", desc: "New to paintball or just starting out" },
-                  { id: "intermediate", label: "Intermediate", desc: "Some experience, comfortable with basics" },
-                  { id: "advanced", label: "Advanced", desc: "Experienced player, competitive mindset" },
-                  { id: "expert", label: "Expert", desc: "Tournament level, highly skilled" },
-                ].map((level) => (
-                  <button
-                    key={level.id}
-                    onClick={() => setFormData({ ...formData, skillLevel: level.id })}
-                    className={`w-full p-4 rounded-2xl border-2 text-left transition-all ${
-                      formData.skillLevel === level.id
-                        ? "border-[#00FF41] bg-[#00FF41]/10"
-                        : "border-gray-600 bg-[#404040] hover:border-gray-500"
-                    }`}
-                  >
-                    <div className="font-semibold">{level.label}</div>
-                    <div className="text-sm text-gray-400">{level.desc}</div>
-                  </button>
-                ))}
+                <div className="flex items-center space-x-3 p-3 bg-[#404040] rounded-xl">
+                  <Shield className="w-5 h-5 text-[#00FF41]" />
+                  <span className="text-sm">Bank-level security encryption</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-[#404040] rounded-xl">
+                  <CreditCard className="w-5 h-5 text-[#00FF41]" />
+                  <span className="text-sm">Multiple payment methods supported</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-[#404040] rounded-xl">
+                  <DollarSign className="w-5 h-5 text-[#00FF41]" />
+                  <span className="text-sm">Instant transfers and withdrawals</span>
+                </div>
               </div>
 
               <Button
                 onClick={nextStep}
-                disabled={!formData.skillLevel}
-                className="w-full bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold rounded-2xl py-3 shadow-glow-green transition-all duration-300 disabled:opacity-50"
+                className="w-full bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold rounded-2xl py-3 shadow-glow-green transition-all duration-300"
               >
-                Continue
+                Activate Wallet
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -245,7 +263,7 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                   <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
                 </div>
                 <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
-                  Step 4 of 5
+                  Step 4 of 6
                 </Badge>
               </div>
 
@@ -304,35 +322,106 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                   <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
                 </div>
                 <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
-                  Step 5 of 5
+                  Step 5 of 6
                 </Badge>
               </div>
 
               <div className="text-center space-y-6">
                 <div className="w-20 h-20 bg-[#00FF41] rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle className="w-10 h-10 text-black" />
+                  <Package className="w-10 h-10 text-black" />
                 </div>
                 <div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">You're All Set!</h1>
-                  <p className="text-gray-400 text-sm sm:text-base">Welcome to the CrosspointX community</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">Viral Kit Confirmed!</h1>
+                  <p className="text-[#00FF41] text-sm sm:text-base font-medium">
+                    Your 4 physical tags are being shipped
+                  </p>
                 </div>
               </div>
 
               <div className="bg-[#404040] rounded-2xl p-4 space-y-3">
-                <h3 className="font-semibold text-center">Your Profile Summary</h3>
+                <h3 className="font-semibold text-center mb-3">Shipping Details</h3>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Callsign:</span>
-                    <span>{formData.username || "ShadowSniper"}</span>
+                  <div>
+                    <span className="text-gray-400">Shipping to:</span>
+                    <div className="text-white mt-1">
+                      123 Main St
+                      <br />
+                      City, ST 12345
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Skill Level:</span>
-                    <span className="capitalize">{formData.skillLevel || "Intermediate"}</span>
+                  <div className="flex justify-between pt-2 border-t border-gray-600">
+                    <span className="text-gray-400">Estimated delivery:</span>
+                    <span className="text-[#00FF41]">3-5 business days</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Interests:</span>
-                    <span>{formData.interests.length || 2} selected</span>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <p className="text-xs text-gray-500 mb-4">Track your shipment via email confirmation</p>
+              </div>
+
+              <Button
+                onClick={nextStep}
+                className="w-full bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold rounded-2xl py-3 shadow-glow-green transition-all duration-300"
+              >
+                Find Your First Game
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+        )
+
+      case 6:
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-[#2A2A2A] text-white p-4 sm:p-6">
+            <div className="w-full max-w-sm space-y-6 sm:space-y-8">
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center mb-6">
+                  <Image src="/logo-green.png" alt="CrosspointX" width={48} height={48} className="rounded-2xl" />
+                  <span className="ml-3 text-xl sm:text-2xl font-bold text-white">CrosspointX</span>
+                </div>
+                <Badge className="bg-[#404040] border-[#00FF41] text-[#00FF41] rounded-xl px-4 py-2 shadow-glow-green">
+                  Step 6 of 6
+                </Badge>
+              </div>
+
+              <div className="text-center space-y-2">
+                <h1 className="text-xl sm:text-2xl font-bold text-white">Terms & Location Access</h1>
+                <p className="text-gray-400 text-sm sm:text-base">Final step to complete your account</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-[#404040] rounded-2xl p-4">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <MapPin className="w-5 h-5 text-[#00FF41]" />
+                    <span className="font-medium">Location Access Required</span>
                   </div>
+                  <p className="text-sm text-gray-400">
+                    We need your location to show nearby games and calculate distances to paintball fields.
+                  </p>
+                </div>
+
+                <div className="bg-[#404040] rounded-2xl p-4 max-h-32 overflow-y-auto">
+                  <h3 className="font-medium mb-2">Terms and Conditions</h3>
+                  <div className="text-xs text-gray-400 space-y-2">
+                    <p>By using CrosspointX, you agree to our terms of service and privacy policy.</p>
+                    <p>• You must be 18+ or have parental consent</p>
+                    <p>• Follow all safety guidelines during games</p>
+                    <p>• Respect other players and referees</p>
+                    <p>• No refunds for missed games without 24hr notice</p>
+                    <p>• Location data used only for game matching</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="flex items-center space-x-3">
+                    <input type="checkbox" className="w-4 h-4 text-[#00FF41] bg-[#404040] border-gray-600 rounded" />
+                    <span className="text-sm">I agree to the Terms and Conditions</span>
+                  </label>
+                  <label className="flex items-center space-x-3">
+                    <input type="checkbox" className="w-4 h-4 text-[#00FF41] bg-[#404040] border-gray-600 rounded" />
+                    <span className="text-sm">Allow location access for nearby games</span>
+                  </label>
                 </div>
               </div>
 
@@ -340,8 +429,8 @@ export function OnboardingFlow({ currentStep, setCurrentStep, onComplete }: Onbo
                 onClick={nextStep}
                 className="w-full bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold rounded-2xl py-3 shadow-glow-green transition-all duration-300"
               >
-                Enter CrosspointX
-                <ArrowRight className="w-4 h-4 ml-2" />
+                Complete Setup
+                <CheckCircle className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </div>

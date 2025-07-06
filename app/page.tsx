@@ -48,6 +48,7 @@ export default function HomePage() {
       setAppState("app")
     } else {
       setAppState("onboarding")
+      setCurrentStep(1) // Ensure we start at step 1
     }
     setIsLoading(false)
   }
@@ -60,6 +61,7 @@ export default function HomePage() {
     setIsAuthenticated(false)
     localStorage.removeItem("crosspointx-auth")
     localStorage.removeItem("crosspointx-user-type")
+    setCurrentStep(1)
     setAppState("landing")
   }
 

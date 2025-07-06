@@ -11,10 +11,15 @@ interface LandingPageProps {
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
+
+  const handleGetStarted = () => {
+    onGetStarted()
+  }
 
   const highlights = [
     { icon: Smartphone, label: "Mobile Optimized" },
@@ -24,7 +29,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-[#2A2A2A] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#2A2A2A] text-white overflow-x-hidden transition-all duration-500">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 via-transparent to-[#FF6B35]/10"></div>
       <div className="absolute top-20 left-10 w-32 h-32 bg-[#00FF41]/20 rounded-full blur-3xl"></div>
@@ -39,7 +44,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
           <Button
             variant="outline"
-            onClick={onGetStarted}
+            onClick={handleGetStarted}
             className="border-[#00FF41] text-[#00FF41] hover:bg-[#00FF41] hover:text-black bg-transparent rounded-xl px-4 py-2 sm:px-6 sm:py-3 shadow-glow-green transition-all duration-300"
           >
             Sign In
@@ -68,6 +73,41 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
       </div>
 
+      {/* Ready to Dominate CTA */}
+      <section className="relative z-10 py-8 sm:py-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-gradient-to-r from-[#00FF41]/20 to-[#FF6B35]/20 rounded-3xl p-6 sm:p-8 border border-[#00FF41]/30 shadow-soft backdrop-blur-sm">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Ready to Dominate?</h2>
+            <p className="text-gray-300 text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
+              Join the elite community that's redefining competitive paintball.
+            </p>
+            <div className="relative inline-block">
+              {/* Orbiting Light Effect */}
+              {isHovering && (
+                <div className="absolute inset-0 rounded-2xl">
+                  <div className="absolute w-2 h-2 bg-[#00FF41] rounded-full animate-orbit-1 shadow-glow-green"></div>
+                  <div className="absolute w-1.5 h-1.5 bg-[#FF6B35] rounded-full animate-orbit-2 shadow-glow-orange"></div>
+                  <div className="absolute w-1 h-1 bg-blue-400 rounded-full animate-orbit-3"></div>
+                </div>
+              )}
+              <Button
+                onClick={handleGetStarted}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                className={`bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold rounded-2xl shadow-glow-green transition-all duration-300 transform hover:scale-110 ${
+                  isHovering
+                    ? "py-4 sm:py-5 px-8 sm:px-10 text-lg sm:text-xl"
+                    : "py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg"
+                }`}
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Experience CrosspointX */}
       <section className="relative z-10 py-12 sm:py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto text-center">
@@ -94,25 +134,6 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-r from-[#00FF41]/20 to-[#FF6B35]/20 rounded-3xl p-6 sm:p-8 border border-[#00FF41]/30 shadow-soft backdrop-blur-sm">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Ready to Dominate?</h2>
-            <p className="text-gray-300 text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
-              Join the elite community that's redefining competitive paintball.
-            </p>
-            <Button
-              onClick={onGetStarted}
-              className="bg-[#00FF41] text-black hover:bg-[#00FF41]/90 font-semibold py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg rounded-2xl shadow-glow-green transition-all duration-300 transform hover:scale-105"
-            >
-              Get Started
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="relative z-10 py-8 sm:py-12 px-4 sm:px-6 border-t border-gray-700">
         <div className="max-w-6xl mx-auto text-center">
@@ -123,6 +144,53 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           <div className="text-sm text-gray-500">© 2025 CrosspointX. All rights reserved.</div>
         </div>
       </footer>
+
+      <style jsx>{`
+        @keyframes orbit-1 {
+          0% { 
+            transform: rotate(0deg) translateX(60px) rotate(0deg);
+            opacity: 1;
+          }
+          100% { 
+            transform: rotate(360deg) translateX(60px) rotate(-360deg);
+            opacity: 1;
+          }
+        }
+
+        @keyframes orbit-2 {
+          0% { 
+            transform: rotate(120deg) translateX(45px) rotate(-120deg);
+            opacity: 0.8;
+          }
+          100% { 
+            transform: rotate(480deg) translateX(45px) rotate(-480deg);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes orbit-3 {
+          0% { 
+            transform: rotate(240deg) translateX(35px) rotate(-240deg);
+            opacity: 0.6;
+          }
+          100% { 
+            transform: rotate(600deg) translateX(35px) rotate(-600deg);
+            opacity: 0.6;
+          }
+        }
+
+        .animate-orbit-1 {
+          animation: orbit-1 3s linear infinite;
+        }
+
+        .animate-orbit-2 {
+          animation: orbit-2 2.5s linear infinite;
+        }
+
+        .animate-orbit-3 {
+          animation: orbit-3 2s linear infinite;
+        }
+      `}</style>
     </div>
   )
 }
